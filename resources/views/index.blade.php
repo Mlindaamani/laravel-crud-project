@@ -1,165 +1,40 @@
 @extends('layouts.app')
 
-@section('title', 'Home Page')
-
+@section('title', 'Products')
 
 @section('content')
     @include('components.nav-bar')
-    <div class="d-flex flex-wrap container justify-content-center align-items-center mb-5">
-        <div class="container">
-            <div class="row g-5 mt-4">
-                <div class="col-md-6 bg-dark-subtle rounded-2 mx-2 col-lg-4">
-                    <h4 class="text-center mt-3 ">About Me💻</h4>
-                    <p class="border-2 p-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi similique dolorum
-                        nesciunt eius
-                        molestias
-                        labore,
-                        reiciendis repellendus cumque porro, nihil veniam at. Quas illo sit rerum recusandae dolores
-                        perferendis
-                        consectetur
-                        praesentium harum quo voluptas quia nisi deleniti sunt rem totam assumenda, consequuntur modi
-                        tenetur
-                        tempore
-                        numquam animi necessitatibus? Adipisci aut porro ipsa nulla aperiam quos culpa at libero eum
-                        voluptatum</p>
-                </div>
-                <div class="col-md-6 bg-dark-subtle rounded-2 mx-2 col-lg-8">
-                    <h4 class="text-center mt-3">What People Say About Me 🤼</h4>
-                    <p class="border-2 p-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi similique dolorum
-                        nesciunt eius
-                        molestias
-                        labore,
-                        reiciendis repellendus cumque porro, nihil veniam at. Quas illo sit rerum recusandae dolores
-                        perferendis
-                        consectetur
-                        praesentium harum quo voluptas quia nisi deleniti sunt rem totam assumenda, consequuntur modi
-                        tenetur
-                        tempore
-                        numquam animi necessitatibus? Adipisci aut porro ipsa nulla aperiam quos culpa at libero eum
-                        voluptatum</p>
-                </div>
+    <table class="table table-bordered text-start w-75 m-auto mt-lg-5 shadow mt-5">
+        <thead>
+            <tr>
+                <th scope="col" class="bg-success-subtle text-center">Product Name</th>
+                <th scope="col" class="bg-success-subtle text-center">Description</th>
+                <th scope="col" class="bg-success-subtle ">Price</th>
+                <th scope="col" class="text-center bg-success-subtle">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($products as $product)
+                <tr>
+                    <td>{{ $product->name }}</td>
+                    <td>{{ $product->description }}</td>
+                    <td> 💲 {{ $product->price }}</td>
+                    <td>
+                        <div class="d-flex align-items-center gap-2">
+                            <a href="{{ route('products.show', $product->id) }}"
+                                class="btn  btn-sm fw-bold fs-6 shadow">👀</a>
+                            <a href="{{ route('products.edit', $product->id) }}" class="btn btn-sm fw-bold shadow">✏</a>
+                            <form action="{{ route('products.destroy', $product->id) }}" method="post">
+                                @csrf
+                                @method('delete')
+                                <button type="submit" class="btn fw-bold bg-none fs-6 shadow showing mt-2"
+                                    onclick="return confirm('Are you sure you want to delete the {{ $product->name }} 🤔')">❌</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
 
-                <div class="col-md-6 bg-dark-subtle rounded-2 mx-2 col-lg-6">
-                    <h4 class="text-center mt-3">Location 🗺</h4>
-                    <p class="border-2 p-4"> ipsum dolor sit amet consectetur adipisicing elit. Animi similique dolorum
-                        nesciunt
-                        eius molestias
-                        labore,
-                        reiciendis repellendus cumque porro, nihil veniam at. Quas illo sit rerum recusandae dolores
-                        perferendis
-                        consectetur
-                        praesentium harum quo voluptas quia nisi deleniti sunt rem totam assumenda, consequuntur modi
-                        tenetur
-                        tempore
-                        numquam animi necessitatibus? Adipisci aut porro ipsa nulla aperiam quos culpa at libero eum
-                        voluptatum</p>
-                </div>
-                <div class="col-md-6 bg-dark-subtle rounded-2 mx-2 col-lg-5">
-                    <h4 class="text-center mt-3">Location 🗺</h4>
-                    <p class="border-2 p-4"> ipsum dolor sit amet consectetur adipisicing elit. Animi similique dolorum
-                        nesciunt
-                        eius molestias
-                        labore,
-                        reiciendis repellendus cumque porro, nihil veniam at. Quas illo sit rerum recusandae dolores
-                        perferendis
-                        consectetur
-                        praesentium harum quo voluptas quia nisi deleniti sunt rem totam assumenda, consequuntur modi
-                        tenetur
-                        tempore
-                        numquam animi necessitatibus? Adipisci aut porro ipsa nulla aperiam quos culpa at libero eum
-                        voluptatum</p>
-                </div>
-                <div class="col-md-6 bg-dark-subtle rounded-2 mx-2 col-lg-4">
-                    <h4 class="text-center mt-3">Location 🗺</h4>
-                    <p class="border-2 p-4"> ipsum dolor sit amet consectetur adipisicing elit. Animi similique dolorum
-                        nesciunt
-                        eius molestias
-                        labore,
-                        reiciendis repellendus cumque porro, nihil veniam at. Quas illo sit rerum recusandae dolores
-                        perferendis
-                        consectetur
-                        praesentium harum quo voluptas quia nisi deleniti sunt rem totam assumenda, consequuntur modi
-                        tenetur
-                        tempore
-                        numquam animi necessitatibus? Adipisci aut porro ipsa nulla aperiam quos culpa at libero eum
-                        voluptatum</p>
-                </div>
-                <div class="col-md-6 bg-dark-subtle rounded-2 mx-2 col-lg-9">
-                    <h4 class="text-center mt-3">Location 🗺</h4>
-                    <p class="border-2 p-4"> ipsum dolor sit amet consectetur adipisicing elit. Animi similique dolorum
-                        nesciunt
-                        eius molestias
-                        labore,
-                        reiciendis repellendus cumque porro, nihil veniam at. Quas illo sit rerum recusandae dolores
-                        perferendis
-                        consectetur
-                        praesentium harum quo voluptas quia nisi deleniti sunt rem totam assumenda, consequuntur modi
-                        tenetur
-                        tempore
-                        numquam animi necessitatibus? Adipisci aut porro ipsa nulla aperiam quos culpa at libero eum
-                        voluptatum</p>
-                </div>
-                <div class="col-md-6 bg-dark-subtle rounded-2 mx-2 col-lg-4">
-                    <h4 class="text-center mt-3">Location 🗺</h4>
-                    <p class="border-2 p-4"> ipsum dolor sit amet consectetur adipisicing elit. Animi similique dolorum
-                        nesciunt
-                        eius molestias
-                        labore,
-                        reiciendis repellendus cumque porro, nihil veniam at. Quas illo sit rerum recusandae dolores
-                        perferendis
-                        consectetur
-                        praesentium harum quo voluptas quia nisi deleniti sunt rem totam assumenda, consequuntur modi
-                        tenetur
-                        tempore
-                        numquam animi necessitatibus? Adipisci aut porro ipsa nulla aperiam quos culpa at libero eum
-                        voluptatum</p>
-                </div>
-                <div class="col-md-6 bg-dark-subtle rounded-2 mx-2 col-lg-8">
-                    <h4 class="text-center mt-3">Location 🗺</h4>
-                    <p class="border-2 p-4"> ipsum dolor sit amet consectetur adipisicing elit. Animi similique dolorum
-                        nesciunt
-                        eius molestias
-                        labore,
-                        reiciendis repellendus cumque porro, nihil veniam at. Quas illo sit rerum recusandae dolores
-                        perferendis
-                        consectetur
-                        praesentium harum quo voluptas quia nisi deleniti sunt rem totam assumenda, consequuntur modi
-                        tenetur
-                        tempore
-                        numquam animi necessitatibus? Adipisci aut porro ipsa nulla aperiam quos culpa at libero eum
-                        voluptatum</p>
-                </div>
-                <div class="col-md-6 bg-dark-subtle rounded-2 mx-2 col-lg-6">
-                    <h4 class="text-center mt-3">Location 🗺</h4>
-                    <p class="border-2 p-4"> ipsum dolor sit amet consectetur adipisicing elit. Animi similique dolorum
-                        nesciunt
-                        eius molestias
-                        labore,
-                        reiciendis repellendus cumque porro, nihil veniam at. Quas illo sit rerum recusandae dolores
-                        perferendis
-                        consectetur
-                        praesentium harum quo voluptas quia nisi deleniti sunt rem totam assumenda, consequuntur modi
-                        tenetur
-                        tempore
-                        numquam animi necessitatibus? Adipisci aut porro ipsa nulla aperiam quos culpa at libero eum
-                        voluptatum</p>
-                </div>
-                <div class="col-md-6 bg-dark-subtle rounded-2 mx-2 col-lg-12">
-                    <h4 class="text-center mt-3">Location 🗺</h4>
-                    <p class="border-2 p-4"> ipsum dolor sit amet consectetur adipisicing elit. Animi similique dolorum
-                        nesciunt
-                        eius molestias
-                        labore,
-                        reiciendis repellendus cumque porro, nihil veniam at. Quas illo sit rerum recusandae dolores
-                        perferendis
-                        consectetur
-                        praesentium harum quo voluptas quia nisi deleniti sunt rem totam assumenda, consequuntur modi
-                        tenetur
-                        tempore
-                        numquam animi necessitatibus? Adipisci aut porro ipsa nulla aperiam quos culpa at libero eum
-                        voluptatum</p>
-                </div>
-            </div>
-
-        </div>
-    @endsection
+@endsection

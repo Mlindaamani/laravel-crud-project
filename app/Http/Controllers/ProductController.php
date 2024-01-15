@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use auth;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -15,7 +14,7 @@ class ProductController extends Controller {
      */
     public function index()
     {
-        return view('products.index', ['products' => Product::all()]);
+        return view('index', ['products' => Product::all()]);
     }
 
     /**
@@ -23,23 +22,23 @@ class ProductController extends Controller {
      */
     public function create()
     {
-        return view('products.create');
+        return view('create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
 
-    //....DevSteve
+
     public function store(Request $request)
     {
         $productData = $request->validate([
             'name' => ['required', 'min:3', 'max:255', Rule::unique('products', 'name')],
             'description' => ['required', 'min:10', 'max:255'],
             'price' => ['required', 'min:1', 'max:1000'],
-            'stock' => ['required', 'min:1', 'max:600']
-        ]); 
-        // This will return an instance of a product $product = new Product()
+            'stock' => ['required', 'min:1', 'max:600'],
+        ]);
+
         Product::create($productData);
         return redirect()->route('products.index')->with('success', 'Product created successfully');
 
@@ -50,7 +49,7 @@ class ProductController extends Controller {
      */
     public function show(Product $product)
     {
-        return view('products.show', ['product' => $product]);
+        return view('show', ['product' => $product]);
     }
 
     /**
@@ -58,7 +57,7 @@ class ProductController extends Controller {
      */
     public function edit(Product $product)
     {
-        return view('products.edit', ['product' => $product]);
+        return view('edit', ['product' => $product]);
     }
 
     /**
